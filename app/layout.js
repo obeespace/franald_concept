@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import { Outfit } from "next/font/google";
+import Footer from "./components/Footer";
 
 
 const outfit = Outfit({ subsets: ["latin"] });
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
       <body
         className={outfit.className} suppressHydrationWarning={true}
       >
-       <Nav/> {children}
+       <Nav/> {children} <Footer/>
       </body>
     </html>
   );

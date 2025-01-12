@@ -12,7 +12,7 @@ const HomeMenu = ({ name, price, description }) => {
           className="mb-3"
         />
       </div>
-      <div className="border shadow-green-400 pt-16 pb-4 rounded-xl px-3">
+      <div className="border shadow-gray-400 shadow-sm pt-16 pb-4 rounded-xl px-3">
       <p>{name}</p>
       <p className="italic text-slate-700">{description}</p>
       <div className="flex justify-between items-center mt-3">

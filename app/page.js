@@ -1,5 +1,9 @@
 import Image from "next/image";
 import homeImg from "../public/fried-meat-table.png";
+import poultry from "../public/poultry.png"
+import fishery from "../public/fishery.png"
+import takeout from "../public/chips.png"
+import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import HomeMenu from "./components/homeMenu";
 
@@ -46,7 +50,7 @@ export default function Home() {
     <main className="w-5/6 mx-auto">
       <section className="lg:mt-20 mt-10">
         <div className="lg:flex justify-between gap-20 ">
-          <div className="lg:w-5/12">
+          <div className="lg:w-7/12">
             <p className="flex items-center gap-2 bg-yellow-100 w-max text-black rounded-md px-2 py-1">
               Bike Delivery
               <span className="rounded-full bg-white shadow-xl w-6 h-6 flex items-center justify-center">
@@ -100,6 +104,35 @@ export default function Home() {
             return <HomeMenu key={data.id} {...data} />;
           })}
         </div>
+      </section>
+
+      <section className="mt-20">
+        <div className="lg:flex justify-between items-end">
+          <p className="text-4xl font-bold lg:w-2/6">Check out our <span className="text-green-800">Businesses</span></p>
+          <p className="text-lg font-medium lg:w-3/6 mt-3 lg:mt-0 italic text-gray-700">Not only do we deliver tasty chops, we farm our meals ourselves. You can also order these fresh farm produce</p>
+        </div>
+
+        <div className="mt-14 lg:grid grid-cols-3">
+          <div className="flex flex-col items-center">
+            <Image src={poultry} alt="vegetables" className="w-4/6" />
+            <p className="font-semibold text-lg mt-7">Poultry Produce</p>
+            <button className="flex items-center font-semibold text-red-800">Order Now <IoMdArrowDropright /></button>
+          </div>
+          <div className="flex flex-col items-center mt-10 lg:mt-0">
+            <Image src={fishery} alt="vegetables" className="w-4/6" />
+            <p className="font-semibold text-lg mt-7">Fishery Produce</p>
+            <button className="flex items-center font-semibold text-red-800">Order Now <IoMdArrowDropright /></button>
+          </div>
+          <div className="flex flex-col items-center mt-10 lg:mt-0">
+            <Image src={takeout} alt="vegetables" className="w-4/6" />
+            <p className="font-semibold text-lg mt-7">Kitchen Produce</p>
+            <button className="flex items-center text-red-800 font-semibold">Order Now <IoMdArrowDropright /></button>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-20 bg-green-950">
+
       </section>
     </main>
   );
