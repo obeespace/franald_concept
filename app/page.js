@@ -39,14 +39,7 @@ const menu = [
     description: "Very short description",
     image: homeImg,
   },
-  {
-    id: 6,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  }
-]
+];
 
 export default function Home() {
   return (
@@ -70,8 +63,8 @@ export default function Home() {
               out to eat and have a nice meal, that's one thing. If we can share
               a laugh, now we're friends.
             </p>
-            <button className="bg-green-800 rounded-md px-4 py-2 mt-5 text-white hover:bg-green-600">
-              Re-up Now
+            <button className="bg-orange-600 rounded-md px-4 py-2 mt-5 text-white hover:bg-green-600">
+              Order Now
             </button>
           </div>
           <Image
@@ -96,12 +89,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-10 lg:mt-6">
-        <div
-          className=" mx-auto my-5 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7"
-        >{menu.map((data) => {
-          return <HomeMenu key={data.id} {...data}/>
-        })}</div>
+      <section className="mt-20 lg:mt-12 ">
+        <div className="flex justify-end">
+          <button className="bg-orange-600 rounded-md px-4 py-2 text-white hover:bg-green-600">
+            See Menu
+          </button>
+        </div>
+        <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
+          {menu.map((data) => {
+            return <HomeMenu key={data.id} {...data} />;
+          })}
+        </div>
       </section>
     </main>
   );
