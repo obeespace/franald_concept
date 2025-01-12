@@ -4,7 +4,7 @@ import homeImg from "../../public/homemenu.png";
 
 const HomeMenu = ({ name, price, description }) => {
   return (
-    <div className="w-5/12 lg:w-2/12 flex-shrink-0 ">
+    <div className="w-7/12 lg:w-2/12 flex-shrink-0 ">
       <div className="flex flex-col items-center -mb-20">
         <Image
           src={homeImg}

@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-20 bg-green-950">
+      <section className="mt-20">
 
       </section>
     </main>
