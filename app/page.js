@@ -181,7 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="my-20 w-4/6 mx-auto">
+      {/* <section className="my-20 w-4/6 mx-auto">
         <div className="lg:flex gap-10">
           <div className="h-96 w-96 rounded-xl bg-green-800"></div>
           <div className="lg:flex flex-col justify-between">
@@ -189,7 +189,7 @@ export default function Home() {
             <div className="h-44 w-96 rounded-xl bg-red-800"></div>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }
