@@ -1,10 +1,13 @@
 import Image from "next/image";
 import homeImg from "../public/fried-meat-table.png";
-import poultry from "../public/poultry.png"
-import fishery from "../public/fishery.png"
-import takeout from "../public/chips.png"
+import poultry from "../public/poultry.png";
+import fishery from "../public/fishery.png";
+import takeout from "../public/chips.png";
+import bannerpic from "../public/bannerpic.png";
+import firstbanner from "../public/firstbanner.jpg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
+import { SiDrone } from "react-icons/si";
 import HomeMenu from "./components/homeMenu";
 
 const menu = [
@@ -47,8 +50,8 @@ const menu = [
 
 export default function Home() {
   return (
-    <main className="w-5/6 mx-auto">
-      <section className="lg:mt-20 mt-10">
+    <main className="">
+      <section className="lg:mt-20 mt-10 w-5/6 mx-auto">
         <div className="lg:flex justify-between gap-20 ">
           <div className="lg:w-7/12">
             <p className="flex items-center gap-2 bg-yellow-100 w-max text-black rounded-md px-2 py-1">
@@ -67,7 +70,7 @@ export default function Home() {
               out to eat and have a nice meal, that's one thing. If we can share
               a laugh, now we're friends.
             </p>
-            <button className="bg-orange-600 rounded-md px-4 py-2 mt-5 text-white hover:bg-green-600">
+            <button className="bg-orange-600 rounded-md px-4 py-2 mt-5 text-white hover:bg-orange-800">
               Order Now
             </button>
           </div>
@@ -93,9 +96,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-20 lg:mt-12 ">
+      <section className="mt-20 lg:mt-12 w-5/6 mx-auto">
         <div className="flex justify-end">
-          <button className="bg-orange-600 rounded-md px-4 py-2 text-white hover:bg-green-600">
+          <button className="bg-orange-600 rounded-md px-4 py-2 text-white hover:bg-orange-800">
             See Menu
           </button>
         </div>
@@ -106,33 +109,86 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-20">
+      <section className="mt-20 w-5/6 mx-auto">
         <div className="lg:flex justify-between items-end">
-          <p className="text-4xl font-bold lg:w-2/6">Check out our <span className="text-green-800">Businesses</span></p>
-          <p className="text-lg font-medium lg:w-3/6 mt-3 lg:mt-0 italic text-gray-700">Not only do we deliver tasty chops, we farm our meals ourselves. You can also order these fresh farm produce</p>
+          <p className="text-4xl font-bold lg:w-2/6">
+            Check out our <span className="text-green-800">Businesses</span>
+          </p>
+          <p className="text-lg font-medium lg:w-3/6 mt-3 lg:mt-0 italic text-gray-700">
+            Not only do we deliver tasty chops, we farm our meals ourselves. You
+            can also order these fresh farm produce
+          </p>
         </div>
 
         <div className="mt-14 lg:grid grid-cols-3">
           <div className="flex flex-col items-center">
             <Image src={poultry} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Poultry Produce</p>
-            <button className="flex items-center font-semibold text-red-800">Order Now <IoMdArrowDropright /></button>
+            <button className="flex items-center font-semibold text-orange-600">
+              Order Now <IoMdArrowDropright />
+            </button>
           </div>
           <div className="flex flex-col items-center mt-10 lg:mt-0">
             <Image src={fishery} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Fishery Produce</p>
-            <button className="flex items-center font-semibold text-red-800">Order Now <IoMdArrowDropright /></button>
+            <button className="flex items-center font-semibold text-orange-600">
+              Order Now <IoMdArrowDropright />
+            </button>
           </div>
           <div className="flex flex-col items-center mt-10 lg:mt-0">
             <Image src={takeout} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Kitchen Produce</p>
-            <button className="flex items-center text-red-800 font-semibold">Order Now <IoMdArrowDropright /></button>
+            <button className="flex items-center text-orange-600 font-semibold">
+              Order Now <IoMdArrowDropright />
+            </button>
           </div>
         </div>
       </section>
 
-      <section className="mt-20">
+      <section className="my-20">
+        <Image
+          src={firstbanner}
+          alt="footer banner"
+          className="w-full h-96 object-cover"
+        />
+        <div className="lg:flex -mt-80 text-white w-5/6 mx-auto">
+          <div className="lg:w-3/6 ">
+            <p className="text-3xl">Tastiest Meal, Tantalize your Taste Buds</p>
+            <p className="italic text-slate-200 mt-4">
+              Good food is the foundation of genuine happiness". "The smell of
+              garlic, the sizzle of olive oil, and the warmth of a good meal are
+              all that's needed for happiness
+            </p>
+          </div>
 
+          <Image alt="banner picture" src={bannerpic} className="lg:w-7/12 mt-4 lg:mt-0" />
+
+          <div className="hidden lg:block">
+            <div className="flex justify-between">
+              <SiDrone className="text-2xl" />
+              <div>
+                <p className="font-semibold text-xl">Air delivery</p> <p className="text-sm">The fastest and safest way to convey</p>
+              </div>
+            </div>
+
+            <div className="flex justify-between">
+              <SiDrone className="text-2xl" />
+              <div>
+                <p className="font-semibold text-xl">Air delivery</p> <p className="text-sm">The fastest and safest way to convey</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="my-20 w-4/6 mx-auto">
+        <div className="lg:flex gap-10">
+          <div className="h-96 w-96 rounded-xl bg-green-800"></div>
+          <div className="lg:flex flex-col justify-between">
+            <div className="h-44 w-96 rounded-xl bg-orange-800"></div>
+            <div className="h-44 w-96 rounded-xl bg-red-800"></div>
+          </div>
+        </div>
       </section>
     </main>
   );
