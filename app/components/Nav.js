@@ -73,7 +73,7 @@ const Nav = () => {
           </Link>
         </div>
         <div className="flex gap-10 items-center">
-          <Link href="training">
+          <Link href="/shop">
             <p
               className={
                 pathname === "/training"
@@ -81,7 +81,7 @@ const Nav = () => {
                   : "text-black"
               }
             >
-              Training
+              Shop
             </p>
           </Link>
           <Link href="/blog">
@@ -159,14 +159,14 @@ const Nav = () => {
           <div className="bg-gray-100 z-50 text-gray-900 h-max w-40 absolute top-20 right-8 py-4 rounded-xl shadow-md">
             <div className="flex flex-col gap-3 items-center w-5/6 mx-auto text-lg font-semibold ">
               <Link
-                href="/training"
+                href="/shop"
                 className="hover:bg-gray-700 w-full hover:text-white text-center rounded-md"
               >
                 <p
                   className=" hover:border-green-700 px-3 py-2"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 >
-                  Training
+                  Shop
                 </p>
               </Link>
 

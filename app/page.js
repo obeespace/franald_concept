@@ -3,6 +3,7 @@ import homeImg from "../public/fried-meat-table.png";
 import poultry from "../public/poultry.png";
 import fishery from "../public/fishery.png";
 import takeout from "../public/chips.png";
+import homeImg2 from "../public/chickenbreast.png";
 import bannerpic from "../public/bannerpic.png";
 import firstbanner from "../public/firstbanner.jpg";
 import { IoMdArrowDropright } from "react-icons/io";
@@ -77,7 +78,12 @@ export default function Home() {
           <Image
             src={homeImg}
             alt="vegetables"
-            className="text-center mt-14 lg:mt-0 lg:w-4/12 w-4/6 lg:h-full -rotate-12"
+            className="hidden lg:block text-center mt-14 lg:mt-0 lg:w-4/12 w-4/6 lg:h-full -rotate-12"
+          />
+          <Image
+            src={homeImg2}
+            alt="vegetables"
+            className="block lg:hidden text-center mt-14 lg:mt-0 lg:w-4/12 lg:h-full -rotate-12"
           />
           <div className="lg:flex hidden lg:flex-col gap-20 text-center">
             <p>
