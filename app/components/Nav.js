@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { IoMdArrowDropright } from "react-icons/io";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { Toaster, toast } from 'sonner'
 
 
@@ -76,7 +77,7 @@ const Nav = () => {
           <Link href="/shop">
             <p
               className={
-                pathname === "/training"
+                pathname === "/shop"
                   ? "border-b-2 border-red-600 px-1 py-1"
                   : "text-black"
               }
@@ -95,18 +96,11 @@ const Nav = () => {
               Blog
             </p>
           </Link>
-          <Link href="contact">
-            <p
-              className={
-                pathname === "/contact"
-                  ? "border-b-2 border-red-600 px-1 py-1"
-                  : "text-black"
-              }
-            >
-              Contact
-            </p>
-          </Link>
+          
         </div>
+        <Link href="cart">
+        <MdOutlineShoppingCart className="text-2xl" />
+          </Link>
         {/* {token === null ? (
           <Link href="signin">
             <motion.p
@@ -136,6 +130,8 @@ const Nav = () => {
           </Link>
         </div>
 
+        <div className="flex gap-3">
+        <Link href="cart"><MdOutlineShoppingCart className="text-xl" /></Link>
         <div className="flex items-center gap-4">
           <div className="relative">
             {toggleMenu ? (
@@ -154,6 +150,7 @@ const Nav = () => {
               </motion.p>
             )}
           </div>
+        </div>
         </div>
         {toggleMenu && (
           <div className="bg-gray-100 z-50 text-gray-900 h-max w-40 absolute top-20 right-8 py-4 rounded-xl shadow-md">

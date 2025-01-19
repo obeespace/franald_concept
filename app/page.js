@@ -10,44 +10,8 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { SiDrone } from "react-icons/si";
 import HomeMenu from "./components/homeMenu";
+import menu from "./components/fakefooddata";
 
-const menu = [
-  {
-    id: 1,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 2,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 3,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 4,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 5,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-];
 
 export default function Home() {
   return (

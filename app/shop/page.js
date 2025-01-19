@@ -1,46 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import homeImg from "../../public/fried-meat-table.png";
 import shopbanner from "../../public/shopbanner2.jpg";
 import ShopMenu from "../components/ShopMenu";
+import menu from "../components/fakefooddata.js";
 
-const menu = [
-  {
-    id: 1,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 2,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 3,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 4,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-  {
-    id: 5,
-    name: "Chicken Sharwama",
-    price: "N3500",
-    description: "Very short description",
-    image: homeImg,
-  },
-];
 
 const page = () => {
   return (
