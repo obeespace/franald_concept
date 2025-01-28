@@ -137,14 +137,14 @@ const Nav = () => {
             {toggleMenu ? (
               <motion.p whileTap={{ scale: 0.7 }}>
                 <IoMdClose
-                  className="text-3xl font-semibold cursor-pointer"
+                  className="text-2xl font-medium cursor-pointer"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 />
               </motion.p>
             ) : (
               <motion.p whileTap={{ scale: 0.7 }}>
                 <HiMenuAlt4
-                  className="text-3xl cursor-pointer font-semibold"
+                  className="text-2xl cursor-pointer font-medium"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 />
               </motion.p>
