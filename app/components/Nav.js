@@ -126,25 +126,25 @@ const Nav = () => {
       <div className="flex lg:hidden items-center justify-between">
         <div>
           <Link href="/">
-            <h1 className="font-bold text-xl">Franald Foods</h1>
+            <h1 className="font-bold text-2xl">Franald Foods</h1>
           </Link>
         </div>
 
         <div className="flex gap-3">
-        <Link href="cart"><MdOutlineShoppingCart className="text-xl" /></Link>
+        <Link href="cart"><MdOutlineShoppingCart className="text-3xl" /></Link>
         <div className="flex items-center gap-4">
           <div className="relative">
             {toggleMenu ? (
               <motion.p whileTap={{ scale: 0.7 }}>
                 <IoMdClose
-                  className="text-3xl text-black cursor-pointer"
+                  className="text-3xl font-semibold cursor-pointer"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 />
               </motion.p>
             ) : (
               <motion.p whileTap={{ scale: 0.7 }}>
                 <HiMenuAlt4
-                  className="text-xl cursor-pointer text-black"
+                  className="text-3xl cursor-pointer font-semibold"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 />
               </motion.p>
