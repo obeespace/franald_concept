@@ -16,7 +16,7 @@ const page = () => {
           <CartInfo key={index} {...item} deleteItem={removeFromCart}/>
         ))
       ) : (
-        <div className="py-32">
+        <div className="py-40">
           <div className="flex justify-center items-center">
             <Image src={cartpic} alt="cart" className="lg:w-1/6 w-2/6" />
             <p className="text-3xl">Cart is Empty</p>
