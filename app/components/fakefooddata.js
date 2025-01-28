@@ -9,16 +9,16 @@ const menu = [
     },
     {
       id: 2,
-      name: "Chicken Sharwama",
-      price: "N3500",
+      name: "Goat Sharwama",
+      price: "N7500",
       description: "Very short description",
       image: homeImg,
     },
     {
       id: 3,
-      name: "Chicken Sharwama",
-      price: "N3500",
-      description: "Very short description",
+      name: "Turkey Sharwama",
+      price: "N8200",
+      description: "short description",
       image: homeImg,
     },
     {

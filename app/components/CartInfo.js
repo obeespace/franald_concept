@@ -22,7 +22,7 @@ const CartInfo = () => {
 
             <div className="flex gap-5 lg:gap-0 items-center lg:w-3/6 lg:justify-between justify-end text-xl">
               <p className="flex justify-end">- 3 +</p>
-              <div className="flex justify-end"><MdDeleteOutline className="" /></div>
+              <div onClick={deleteItem} className="flex justify-end"><MdDeleteOutline className="" /></div>
             </div>
           </div>
         </div>
