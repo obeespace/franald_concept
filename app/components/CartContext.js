@@ -1,32 +1,36 @@
-'use client';
-
-import React, { createContext, useState, useEffect } from 'react';
+"use client";
+import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage on initial render
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
+    const storedCart = localStorage.getItem("cart");
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
   }, []);
 
-  // Add item to the cart
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const addToCart = (item) => {
-    const updatedCart = [...cart, item];
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setCart((prevCart) => {
+      const updatedCart = [...prevCart, { ...item, id: new Date().getTime() }];
+      return updatedCart;
+    });
   };
 
-  // Remove item from the cart
-  const removeFromCart = (index) => {
-    const updatedCart = cart.filter((_, i) => i !== index);
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  const removeFromCart = (id) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter((item) => item.id !== id); // Remove only the item with the matching id
+      return updatedCart;
+    });
   };
 
   return (

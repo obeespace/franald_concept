@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { CartContext } from "../components/CartContext";
 import CartInfo from "../components/CartInfo";
+import cartpic from "../../public/cartpic.png";
 
 const page = () => {
   const { cart, removeFromCart } = useContext(CartContext);
@@ -12,12 +13,12 @@ const page = () => {
       <p className="text-2xl font-medium mb-5">Cart Items</p>
       {cart.length > 0 ? (
         cart.map((item, index) => (
-          <CartInfo key={index} {...item}/>
+          <CartInfo key={index} {...item} deleteItem={removeFromCart}/>
         ))
       ) : (
         <div className="py-48">
           <div className="flex justify-center items-center">
-            <Image src={cart} alt="cart" className="lg:w-1/6 w-2/6" />
+            <Image src={cartpic} alt="cart" className="lg:w-1/6 w-2/6" />
             <p className="text-3xl">Cart is Empty</p>
           </div>
         </div>
