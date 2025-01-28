@@ -31,7 +31,7 @@ const ShopMenu = ({ name, price, description }) => {
             onClick={handleAddToCart}
             className="cursor-pointer text-blue-500 hover:underline"
           >
-            Add to Cart
+            Cart
           </p>
         </div>
       </div>
