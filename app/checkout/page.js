@@ -17,8 +17,8 @@ const page = () => {
       className="my-20 lg:w-5/12 w-5/6 mx-auto"
     >
       {/* <Toaster position="top-right" richColors /> */}
-      <p className="text-2xl text-center font-bold">
-        Delivery <span className="italic text-red-600">Info</span>
+      <p className="text-2xl font-bold">
+        Delivery <span className="text-red-600">Info</span>
       </p>
       <div className="mt-10 text-black">
         <div className="flex gap-5">

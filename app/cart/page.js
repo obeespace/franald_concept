@@ -10,13 +10,13 @@ const page = () => {
   const { cart, removeFromCart } = useContext(CartContext);
   return (
     <main className="w-5/6 mx-auto mt-10 mb-40">
-      <p className="text-2xl font-medium mb-5">Cart Items</p>
+    {cart.length > 0 && <p className="text-2xl font-semibold mb-5">Cart <span className="text-red-700">Items</span></p>}
       {cart.length > 0 ? (
         cart.map((item, index) => (
           <CartInfo key={index} {...item} deleteItem={removeFromCart}/>
         ))
       ) : (
-        <div className="py-48">
+        <div className="py-32">
           <div className="flex justify-center items-center">
             <Image src={cartpic} alt="cart" className="lg:w-1/6 w-2/6" />
             <p className="text-3xl">Cart is Empty</p>
@@ -24,11 +24,11 @@ const page = () => {
         </div>
       )}
 
-      <Link href="/checkout">
+      {cart.length > 0 && <Link href="/checkout">
         <button className="bg-orange-600 rounded-md px-4 py-2 mt-5 text-white hover:bg-orange-800">
           Proceed to Checkout
         </button>
-      </Link>
+      </Link>}
     </main>
   );
 };
