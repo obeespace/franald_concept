@@ -48,7 +48,7 @@ const AdminPage = () => {
       <ul className="mt-5">
         {menus.map((menu) => (
           <li key={menu._id} className="border p-3 flex justify-between items-center">
-            <span>{menu.name} - ${menu.price}</span>
+            <span>{menu.name} - ₦{menu.price}</span>
             <div>
               <button onClick={() => handleEdit(menu._id)} className="bg-yellow-500 text-white px-3 py-1 mr-2">Edit</button>
               <button onClick={() => handleDelete(menu._id)} className="bg-red-500 text-white px-3 py-1">Delete</button>
