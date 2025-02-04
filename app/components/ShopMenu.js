@@ -29,7 +29,7 @@ const ShopMenu = ({ name, price, description }) => {
           <p className="text-red-800 gap-10 font-semibold text-lg">{price}</p>
           <p
             onClick={handleAddToCart}
-            className="cursor-pointer text-blue-500 hover:underline"
+            className="cursor-pointer text-green-700 lg:hover:underline"
           >
             Cart
           </p>
