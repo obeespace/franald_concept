@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 const AdminPage = () => {
   const [menus, setMenus] = useState([]);
@@ -50,8 +52,8 @@ const AdminPage = () => {
           <li key={menu._id} className="border p-3 flex justify-between items-center">
             <span>{menu.name} - ₦{menu.price}</span>
             <div>
-              <button onClick={() => handleEdit(menu._id)} className="bg-yellow-500 text-white px-3 py-1 mr-2">Edit</button>
-              <button onClick={() => handleDelete(menu._id)} className="bg-red-500 text-white px-3 py-1">Delete</button>
+              <button onClick={() => handleEdit(menu._id)} className="bg-yellow-700 rounded-full text-white px-2 py-2 mr-2"><FaEdit /></button>
+              <button onClick={() => handleDelete(menu._id)} className="bg-red-700 text-white px-2 rounded-full py-2"><MdDeleteOutline /></button>
             </div>
           </li>
         ))}
