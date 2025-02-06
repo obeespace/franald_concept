@@ -3,18 +3,23 @@ import React, { useContext } from 'react';
 import Image from 'next/image';
 import { CartContext } from './CartContext';
 import homeImg from '../../public/homemenu.png';
+import { Toaster, toast } from 'sonner'
+
 
 const ShopMenu = ({ name, price, description }) => {
   const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
     const newItem = { name, price, description };
+
     addToCart(newItem);
-    console.log(`Added to cart: ${JSON.stringify(newItem)}`);
+    toast.success("Item Added to cart")
+    
   };
 
   return (
     <div className="lg:w-2/12 flex-shrink-0">
+      <Toaster position="top-right" richColors />
       <div className="flex flex-col items-center -mb-20">
         <Image
           src={homeImg}
