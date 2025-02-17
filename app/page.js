@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import homeImg from "../public/fried-meat-table.png";
 import poultry from "../public/poultry.png";
@@ -10,12 +11,38 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { SiDrone } from "react-icons/si";
 import HomeMenu from "./components/homeMenu";
-import menu from "./components/fakefooddata";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { Toaster, toast } from 'sonner';
+
 
 
 export default function Home() {
+  const [menus, setMenus] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchMenus = useCallback(async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get("/api/menu");
+      setMenus(data || []); // Fallback to empty array if data is null/undefined
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load menu items. Check your connection.");
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMenus();
+  }, [fetchMenus]);
+
+  if (loading) return <p className="text-center">Loading...</p>;
   return (
     <main className="">
+            <Toaster position="top-right" richColors />
+      
       <section className="lg:mt-20 mt-10 w-5/6 mx-auto">
         <div className="lg:flex justify-between gap-20 ">
           <div className="lg:w-7/12">
@@ -73,9 +100,9 @@ export default function Home() {
           </button>
         </div>
         <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
-          {menu.map((data) => {
-            return <HomeMenu key={data.id} {...data} />;
-          })}
+        {menus.map((data) => (
+              <HomeMenu key={data._id} {...data} />
+            ))}
         </div>
       </section>
 
