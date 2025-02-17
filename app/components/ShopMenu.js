@@ -3,22 +3,19 @@ import React, { useContext } from 'react';
 import Image from 'next/image';
 import { CartContext } from './CartContext';
 import homeImg from '../../public/homemenu.png';
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from 'sonner';
 
-
-const ShopMenu = ({ name, price, description }) => {
+const ShopMenu = ({ id, name, price, description }) => {
   const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
     const newItem = { name, price, description };
-
-    addToCart(newItem);
-    toast.success("Item Added to cart")
-    
+    addToCart(newItem); // Update cart state
+    toast.success(`${name} added to cart`, { duration: 2000 }); // Trigger toast directly
   };
 
   return (
-    <div className="lg:w-2/12 flex-shrink-0">
+    <div className="lg:w-2/12 flex-shrink-0" key={id}>
       <Toaster position="top-right" richColors />
       <div className="flex flex-col items-center -mb-20">
         <Image
