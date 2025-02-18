@@ -85,10 +85,10 @@ const Nav = () => {
               Shop
             </p>
           </Link>
-          <Link href="/blog">
+          <Link href="/events">
             <p
               className={
-                pathname === "/blog"
+                pathname === "/events"
                   ? "border-b-2 border-red-600 px-1 py-1"
                   : "text-black"
               }
@@ -168,14 +168,14 @@ const Nav = () => {
               </Link>
 
               <Link
-                href="/blog"
+                href="/events"
                 className="hover:bg-gray-700 w-full hover:text-white text-center rounded-md"
               >
                 <p
                   className=" hover:border-green-700 px-3 py-2"
                   onClick={() => setToggleMenu((prev) => !prev)}
                 >
-                  Blog
+                  events
                 </p>
               </Link>
               <Link
