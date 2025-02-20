@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="text-white w-full h-80 lg:h-96 relative fixed bottom-0 left-0">
+    <div className="text-white w-full h-80 lg:h-96 relative">
       <Image
         src={banner}
         alt="footer banner"
