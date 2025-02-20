@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useContext } from 'react';
+import { Toaster, toast } from 'sonner'
 import { CartContext } from '../components/CartContext'; // Adjust the import path as needed
 import PaystackPop from '@paystack/inline-js'; // Import Paystack inline JS
 
@@ -15,6 +16,10 @@ const Page = () => {
 
   // Initialize Paystack payment
   const initializePayment = () => {
+    if (!email || !address || !nickname || !fullname || !phone) {
+      toast.error("All fields are required");
+      return;
+    }
     const paystack = new PaystackPop();
 
     paystack.newTransaction({
@@ -24,20 +29,22 @@ const Page = () => {
       ref: new Date().getTime().toString(), // Unique reference for each transaction
       onSuccess: (transaction) => {
         console.log("Payment Successful!", transaction);
-        alert("Payment Successful! Thank you for your purchase.");
+        toast.success("Payment Successful! Your order is now being processed.");
         clearCart(); // Clear the cart after successful payment
         // Redirect to a success page or home page
-        window.location.href = "/success"; // Replace with your success page route
+        window.location.href = "/home"; // Replace with your success page route
       },
       onCancel: () => {
         console.log("Payment Cancelled");
-        alert("Payment was not completed. Please try again.");
+        toast.error("Payment was not completed. Please try again.");
       },
     });
   };
 
   return (
     <div className="my-20 lg:w-5/12 w-5/6 mx-auto">
+            <Toaster position="top-right" richColors />
+
       <p className="text-2xl font-bold">
         Delivery <span className="text-red-600">Info</span>
       </p>
