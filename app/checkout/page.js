@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { Toaster, toast } from 'sonner'
 import { CartContext } from '../components/CartContext'; // Adjust the import path as needed
-import PaystackPop from '@paystack/inline-js'; // Import Paystack inline JS
+
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -15,30 +15,39 @@ const Page = () => {
   const { total, clearCart } = useContext(CartContext);
 
   // Initialize Paystack payment
-  const initializePayment = () => {
+  const initializePayment = async () => {
     if (!email || !address || !nickname || !fullname || !phone) {
-      toast.error("All fields are required");
-      return;
+      toast.error("Please fill in all the required fields.");
+      return; 
     }
-    const paystack = new PaystackPop();
+    const reference = new Date().getTime().toString(); // Unique reference for each transaction
 
-    paystack.newTransaction({
-      key: "pk_test_f9e5f001c6e0fd5e327d9f59585c1dcd8e410f8a", // Replace with your Paystack public key
-      email: email, // Customer's email
-      amount: total * 100, // Amount in kobo (e.g., 10000 = ₦100.00)
-      ref: new Date().getTime().toString(), // Unique reference for each transaction
-      onSuccess: (transaction) => {
-        console.log("Payment Successful!", transaction);
-        toast.success("Payment Successful! Your order is now being processed.");
-        clearCart(); // Clear the cart after successful payment
-        // Redirect to a success page or home page
-        window.location.href = "/home"; // Replace with your success page route
-      },
-      onCancel: () => {
-        console.log("Payment Cancelled");
-        toast.error("Payment was not completed. Please try again.");
-      },
-    });
+    try {
+      // Dynamically import PaystackPop
+      const PaystackPop = (await import('@paystack/inline-js')).default;
+
+      const paystack = new PaystackPop();
+
+      paystack.newTransaction({
+        key: "pk_test_f9e5f001c6e0fd5e327d9f59585c1dcd8e410f8a", // Use NEXT_PUBLIC_ prefix for client-side access
+        email,
+        amount: total * 100, // Amount in kobo
+        ref: reference,
+        onSuccess: (transaction) => {
+          console.log("Payment Successful!", transaction);
+          toast.success("Payment Successful! Your order is being processed.");
+          clearCart(); // Clear the cart after successful payment
+          window.location.href = "/shop"; // Redirect to success page
+        },
+        onCancel: () => {
+          console.log("Payment Cancelled");
+          toast.error("Payment was not completed. Please try again.");
+        },
+      });
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (

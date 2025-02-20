@@ -52,15 +52,7 @@ const Nav = () => {
 //       }
 //     }, 500); // Check every 500ms
 
-//     // Set up activity listeners to reset timer
-//     const events = ["mousemove", "keydown", "click", "scroll"];
-//     events.forEach((event) => window.addEventListener(event, resetTimer));
-
-//     return () => {
-//       clearInterval(interval);
-//       clearTimeout(logoutTimer);
-//       events.forEach((event) => window.removeEventListener(event, resetTimer));
-//     };
+//   
 //   }, [token]);
 
   return (
