@@ -15,7 +15,7 @@ const ShopMenu = ({ id, name, price, description }) => {
   };
 
   return (
-    <div className="lg:w-2/12 flex-shrink-0" key={id}>
+    <div className="lg:w-full flex-shrink-0" key={id}>
       <Toaster position="top-right" richColors />
       <div className="flex flex-col items-center -mb-20">
         <Image

@@ -12,42 +12,68 @@ const Page = () => {
   const [phone, setPhone] = useState("");
 
   // Access the total from CartContext
-  const { total, clearCart } = useContext(CartContext);
+  const {cart, total, clearCart } = useContext(CartContext);
 
   // Initialize Paystack payment
   const initializePayment = async () => {
     if (!email || !address || !nickname || !fullname || !phone) {
-      toast.error("Please fill in all the required fields.");
+      toast.error("Please fill in all required fields.");
       return; 
     }
-    const reference = new Date().getTime().toString(); // Unique reference for each transaction
+    const PaystackPop = (await import('@paystack/inline-js')).default;
+    const paystack = new PaystackPop();
 
-    try {
-      // Dynamically import PaystackPop
-      const PaystackPop = (await import('@paystack/inline-js')).default;
+    paystack.newTransaction({
+      key: 'pk_test_f9e5f001c6e0fd5e327d9f59585c1dcd8e410f8a', // Replace with your Paystack public key
+      email: email, // Customer's email
+      amount: total * 100, // Amount in kobo (e.g., 10000 = ₦100.00)
+      ref: new Date().getTime().toString(), // Unique reference for each transaction
+      onSuccess: async (transaction) => {
+        console.log("Payment Successful!", transaction);
 
-      const paystack = new PaystackPop();
+        // Save order to the database
+        const orderData = {
+          customerName: fullname,
+          email,
+          address,
+          phone,
+          items: cart.map((item) => ({
+            name: item.name,
+            price: item.price, 
+            quantity: item.quantity,
+          })),
+          totalAmount: total,
+          status: 'Processing', // Initial status
+        };
 
-      paystack.newTransaction({
-        key: "pk_test_f9e5f001c6e0fd5e327d9f59585c1dcd8e410f8a", // Use NEXT_PUBLIC_ prefix for client-side access
-        email,
-        amount: total * 100, // Amount in kobo
-        ref: reference,
-        onSuccess: (transaction) => {
-          console.log("Payment Successful!", transaction);
-          toast.success("Payment Successful! Your order is being processed.");
-          clearCart(); // Clear the cart after successful payment
-          window.location.href = "/shop"; // Redirect to success page
-        },
-        onCancel: () => {
-          console.log("Payment Cancelled");
-          toast.error("Payment was not completed. Please try again.");
-        },
-      });
-    } catch (error) {
-      console.error("Error processing payment:", error);
-      toast.error("An error occurred. Please try again.");
-    }
+        console.log("Order Data:", orderData)
+
+        try {
+          const response = await fetch('/api/clientorder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+          });
+
+          if (response.ok) {
+            toast.success("Payment Successful! Your order has been placed.");
+            clearCart(); // Clear the cart after successful payment
+            window.location.href = `/orders/${transaction.reference}`; // Redirect to order tracking page
+          } else {
+            toast.error("Failed to save order. Please contact support.");
+          }
+        } catch (error) {
+          console.error("Error saving order:", error);
+          toast.error("An error occurred. Please try again.");
+        }
+      },
+      onCancel: () => {
+        console.log("Payment Cancelled");
+        toast.error("Payment was not completed. Please try again.");
+      },
+    });
   };
 
   return (

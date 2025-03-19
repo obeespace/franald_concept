@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import homeImg from "../public/fried-meat-table.png";
 import poultry from "../public/poultry.png";
@@ -13,9 +13,7 @@ import { SiDrone } from "react-icons/si";
 import HomeMenu from "./components/homeMenu";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { Toaster, toast } from 'sonner';
-
-
+import { Toaster, toast } from "sonner";
 
 export default function Home() {
   const [menus, setMenus] = useState([]);
@@ -38,11 +36,11 @@ export default function Home() {
     fetchMenus();
   }, [fetchMenus]);
 
-  if (loading) return <p className="text-center">Loading...</p>;
+
   return (
     <main className="">
-            <Toaster position="top-right" richColors />
-      
+      <Toaster position="top-right" richColors />
+
       <section className="lg:mt-20 mt-10 w-5/6 mx-auto">
         <div className="lg:flex justify-between gap-20 ">
           <div className="lg:w-7/12">
@@ -99,11 +97,12 @@ export default function Home() {
             See Menu
           </button>
         </div>
-        <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
-        {menus.map((data) => (
-              <HomeMenu key={data._id} {...data} />
-            ))}
-        </div>
+        {loading ? <p className="text-center">Menu Loading...</p> : <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
+          {menus.map((data) => (
+            <HomeMenu key={data._id} {...data} />
+          ))}
+        </div>}
+        
       </section>
 
       <section className="mt-20 w-5/6 mx-auto">
@@ -158,20 +157,26 @@ export default function Home() {
             </p>
           </div>
 
-          <Image alt="banner picture" src={bannerpic} className="lg:w-7/12 mt-4 lg:mt-0" />
+          <Image
+            alt="banner picture"
+            src={bannerpic}
+            className="lg:w-7/12 mt-4 lg:mt-0"
+          />
 
           <div className="hidden lg:block">
             <div className="flex justify-between">
               <SiDrone className="text-2xl" />
               <div>
-                <p className="font-semibold text-xl">Air delivery</p> <p className="text-sm">The fastest and safest way to convey</p>
+                <p className="font-semibold text-xl">Air delivery</p>{" "}
+                <p className="text-sm">The fastest and safest way to convey</p>
               </div>
             </div>
 
             <div className="flex justify-between">
               <SiDrone className="text-2xl" />
               <div>
-                <p className="font-semibold text-xl">Air delivery</p> <p className="text-sm">The fastest and safest way to convey</p>
+                <p className="font-semibold text-xl">Air delivery</p>{" "}
+                <p className="text-sm">The fastest and safest way to convey</p>
               </div>
             </div>
           </div>

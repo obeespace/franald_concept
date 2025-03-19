@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
+import Cookies from "js-cookie";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -14,16 +15,17 @@ import { Toaster, toast } from 'sonner'
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const pathname = usePathname();
+  const token = Cookies.get("token")
 //   const [token, setToken] = useState(null);
 //   const inactivityTimeLimit = 30 * 60 * 1000; // 30 minutes in milliseconds
 //   let logoutTimer;
 
   // Function to log out the user
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     setToken(null);
-//     toast.info("You have been logged out due to inactivity.");
-//   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    toast.info("You have been logged out due to inactivity.");
+  };
 
 //   // Function to reset the inactivity timer
 //   const resetTimer = () => {
@@ -85,15 +87,16 @@ const Nav = () => {
                   : "text-black"
               }
             >
-              Blog
+              Events
             </p>
           </Link>
           
         </div>
+        <div className="flex items-center">
         <Link href="cart">
         <MdOutlineShoppingCart className="text-2xl" />
           </Link>
-        {/* {token === null ? (
+        {token === null ? (
           <Link href="signin">
             <motion.p
               whileTap={{ scale: 0.7 }}
@@ -103,7 +106,7 @@ const Nav = () => {
             </motion.p>
           </Link>
         ) : (
-          <Link href="user">
+          <Link href="/dashboard">
             <motion.p
               whileTap={{ scale: 0.7 }}
               className="px-5 py-2 bg-white flex font-semibold items-center gap-1 text-black rounded-xl cursor-pointer"
@@ -111,7 +114,8 @@ const Nav = () => {
               Dash Board <IoMdArrowDropright className="text-red-600" />
             </motion.p>
           </Link>
-        )} */}
+        )}
+        </div>
       </div>
 
       {/* Mobile Header */}
