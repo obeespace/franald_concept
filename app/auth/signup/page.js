@@ -17,25 +17,29 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
-
-    const data = { email, password, phone, name };
-
+  
     try {
-      const res = await axios.post("/api/auth/signup", data);
-      
-      localStorage.setItem("token", res.data.token);
-      
-      toast.success("Sign-up successful, you are being redirected...");
+      const res = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        phone,
+        password
+      });
+  
+      toast.success("Sign-up successful, redirecting...");
       router.push("/auth/signin");
+  
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
+      console.log("Error:", error.response);
+      toast.error(error.response?.data?.error || "An error occurred");
     }
   };
+  
 
   return (
     <div
