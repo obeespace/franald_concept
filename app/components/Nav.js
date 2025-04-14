@@ -9,22 +9,23 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Toaster, toast } from 'sonner'
-
+import { useRouter } from 'next/navigation';
 
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const pathname = usePathname();
   const token = Cookies.get("token")
+  const router = useRouter();
 //   const [token, setToken] = useState(null);
 //   const inactivityTimeLimit = 30 * 60 * 1000; // 30 minutes in milliseconds
 //   let logoutTimer;
 
   // Function to log out the user
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    toast.info("You have been logged out due to inactivity.");
+    Cookies.remove("token");
+    toast.info("You have been logged out");
+    router.push("/auth/signin");
   };
 
 //   // Function to reset the inactivity timer
@@ -93,7 +94,7 @@ const Nav = () => {
           
         </div>
         <div className="flex items-center">
-        <Link href="cart">
+        <Link href="/cart">
         <MdOutlineShoppingCart className="text-2xl" />
           </Link>
         {token === null ? (
@@ -174,20 +175,10 @@ const Nav = () => {
                   events
                 </p>
               </Link>
-              <Link
-                href="/contact"
-                className="hover:bg-gray-700 w-full hover:text-white text-center rounded-md"
-              >
-                <p
-                  className="px-3 py-2"
-                  onClick={() => setToggleMenu((prev) => !prev)}
-                >
-                  Contact
-                </p>
-              </Link>
-              {/* {!token ? (
+              
+              {!token ? (
                 <Link
-                  href="/signin"
+                  href="/auth/signin"
                   className="hover:bg-gray-700 hover:text-white w-full text-center rounded-md"
                 >
                   <p
@@ -199,7 +190,7 @@ const Nav = () => {
                 </Link>
               ) : (
                 <Link
-                  href="/user"
+                  href="/dashboard"
                   className="hover:bg-gray-700 hover:text-white w-full text-center rounded-md"
                 >
                   <p
@@ -209,7 +200,15 @@ const Nav = () => {
                     Dash Board
                   </p>
                 </Link>
-              )} */}
+              )}
+              {token && 
+                  <div className="hover:bg-gray-700 hover:text-white w-full text-center cursor-pointer rounded-md"><p
+                    className="px-3 py-2"
+                    onClick={() => {setToggleMenu((prev) => !prev); handleLogout()}}
+                  >
+                    Log Out
+                  </p></div>
+               }
             </div>
           </div>
         )}
