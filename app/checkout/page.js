@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Toaster, toast } from 'sonner'
 import { CartContext } from '../components/CartContext'; // Adjust the import path as needed
 
@@ -14,29 +14,54 @@ const Page = () => {
   // Access the total from CartContext
   const {cart, total, clearCart } = useContext(CartContext);
 
+  // Fetch the logged-in user's email
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      try {
+        const response = await fetch('/api/auth/user');
+        const userData = await response.json();
+        if (response.ok && userData.email) {
+          setEmail(userData.email); // Set the email to the logged-in user's email
+        } else {
+          console.error('Failed to fetch user email');
+        }
+      } catch (error) {
+        console.error('Error fetching user email:', error);
+      }
+    };
+
+    fetchUserEmail();
+  }, []);
+
   // Initialize Paystack payment
   const initializePayment = async () => {
     if (!email || !address || !nickname || !fullname || !phone) {
       toast.error("Please fill in all required fields.");
       return; 
     }
+
+    if (!process.env.NEXT_PUBLIC_PAYSTACK_KEY) {
+      toast.error("Paystack public key is not set. Please contact support.");
+      return;
+    }
+
     const PaystackPop = (await import('@paystack/inline-js')).default;
-    const paystack = new PaystackPop();
+    const paystack = new PaystackPop(); 
 
     paystack.newTransaction({
-      key: 'pk_test_f9e5f001c6e0fd5e327d9f59585c1dcd8e410f8a', // Replace with your Paystack public key
-      email: email, // Customer's email
-      amount: total * 100, // Amount in kobo (e.g., 10000 = ₦100.00)
-      ref: new Date().getTime().toString(), // Unique reference for each transaction
+      key: process.env.NEXT_PUBLIC_PAYSTACK_KEY, // Use NEXT_PUBLIC prefix for client-side environment variables
+      email: email.trim(), // Ensure email is trimmed
+      amount: Math.round(total * 100), // Ensure amount is in kobo and rounded
+      ref: `ref_${new Date().getTime()}`, // Unique reference for each transaction
       onSuccess: async (transaction) => {
         console.log("Payment Successful!", transaction);
 
         // Save order to the database
         const orderData = {
-          customerName: fullname,
-          email,
-          address,
-          phone,
+          customerName: fullname.trim(),
+          email: email.trim(),
+          address: address.trim(),
+          phone: phone.trim(),
           items: cart.map((item) => ({
             name: item.name,
             price: item.price, 
@@ -46,7 +71,7 @@ const Page = () => {
           status: 'Processing', // Initial status
         };
 
-        console.log("Order Data:", orderData)
+        console.log("Order Data:", orderData);
 
         try {
           const response = await fetch('/api/clientorder', {
@@ -60,7 +85,7 @@ const Page = () => {
           if (response.ok) {
             toast.success("Payment Successful! Your order has been placed.");
             clearCart(); // Clear the cart after successful payment
-            window.location.href = `/orders/${transaction.reference}`; // Redirect to order tracking page
+            window.location.href = "/dashboard"; // Redirect to the dashboard
           } else {
             toast.error("Failed to save order. Please contact support.");
           }
@@ -116,6 +141,7 @@ const Page = () => {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          readOnly // Make the email field ineditable
           required
         />
 

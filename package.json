@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.2",
     "@next/font": "^14.2.15",
     "@paystack/inline-js": "^2.22.2",
     "axios": "^1.7.9",
     "bcryptjs": "^3.0.2",
     "cookie": "^1.0.2",
     "cookies-next": "^5.1.0",
-    "dotenv": "^16.4.7",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "framer-motion": "^11.17.0",
     "jose": "^6.0.8",
     "js-cookie": "^3.0.5",

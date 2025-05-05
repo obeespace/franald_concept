@@ -14,6 +14,7 @@ import HomeMenu from "./components/homeMenu";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
+import Link from "next/link";
 
 export default function Home() {
   const [menus, setMenus] = useState([]);
@@ -60,9 +61,10 @@ export default function Home() {
               out to eat and have a nice meal, that's one thing. If we can share
               a laugh, now we're friends.
             </p>
+            <Link href='/shop'>
             <button className="bg-orange-600 rounded-md px-4 py-2 mt-5 text-white hover:bg-orange-800">
               Order Now
-            </button>
+            </button></Link>
           </div>
           <Image
             src={homeImg}

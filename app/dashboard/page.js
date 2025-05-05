@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from 'sonner';
 import axios from "axios";
+import { format } from "date-fns";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -15,9 +16,7 @@ export default function Dashboard() {
       try {
         const response = await axios.get("/api/auth/user");
         setUser(response.data);
-        setOrders(response.data.orders)
         console.log(response);
-        console.log(response.data.orders)
       } catch (error) {
         toast.error("Authentication failed")
         console.log("Authentication failed, redirecting...");
@@ -28,37 +27,69 @@ export default function Dashboard() {
     fetchUser();
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      try {
+        const userResponse = await axios.get("/api/auth/user"); // Fetch logged-in user details
+        const userEmail = userResponse.data.email;
+
+        const response = await axios.get(`/api/orders?email=${userEmail}`); // Pass email to fetch orders
+        if (response.status === 200) {
+          setOrders(response.data.orders);
+        } else {
+          console.error("Failed to fetch orders:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserOrders();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (orders.length === 0) {
+    return <div>No orders found.</div>;
+  }
+
+  // Group orders by date
+  const groupedOrders = orders.reduce((acc, order) => {
+    const date = format(new Date(order.createdAt), "MMMM d, yyyy");
+    if (!acc[date]) acc[date] = [];
+    acc[date].push(order);
+    return acc;
+  }, {});
 
   return (
-    <div className="max-w-6xl mx-auto p-5">
+    <div className="w-5/6 mx-auto my-10">
       <h1 className="text-2xl font-bold text-gray-800 mb-5">My Orders</h1>
 
-      
-        {orders ? (<div className="overflow-x-auto">
-          <table className="min-w-full bg-white border shadow-md">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="py-2 px-4 border">Order ID</th>
-                <th className="py-2 px-4 border">Items</th>
-                <th className="py-2 px-4 border">Total</th>
-                <th className="py-2 px-4 border">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id} className="text-center">
-                  <td className="py-2 px-4 border">{order._id.slice(-6)}</td>
-                  <td className="py-2 px-4 border">
-                    {order.items.map((item) => (
-                      <p key={item.name}>
-                        {item.name} x{item.quantity}
-                      </p>
-                    ))}
-                  </td>
-                  <td className="py-2 px-4 border">${order.totalAmount}</td>
-                  <td className="py-2 px-4 border">
-                    <span
+      {orders ? (
+        <div className="space-y-4">
+          {Object.keys(groupedOrders).map((date) => (
+            <div key={date} className="mb-6">
+              <h2 className="text-lg font-bold mb-2">{date}</h2>
+              {groupedOrders[date].map((order) => (
+                <div key={order._id} className="lg:flex justify-between items-center border border-gray-300 p-4 rounded-md shadow-sm">
+                  <div>
+                    <p className="font-semibold">Order ID: {order._id.slice(-6)}</p>
+                    <div className="mt-2">
+                      <p className="font-semibold">Items:</p>
+                      {order.items.map((item) => (
+                        <p key={item.name} className="text-sm">
+                          {item.name} x{item.quantity}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="mt-2 font-semibold">Total: ₦{order.totalAmount}</p>
+                  <p className="mt-2 font-semibold">
+                    Status: <span
                       className={`px-2 py-1 text-xs font-semibold rounded ${
                         order.status === "Delivered"
                           ? "bg-green-500 text-white"
@@ -69,14 +100,15 @@ export default function Dashboard() {
                     >
                       {order.status}
                     </span>
-                  </td>
-                </tr>
+                  </p>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>) : (<p>No order found!</p>)}
-      
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No order found!</p>
+      )}
     </div>
-    
   );
 }

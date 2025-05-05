@@ -1,72 +1,76 @@
 // app/orders/[id]/page.js
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
-const OrderPage = () => {
-  const { id } = useParams(); // Get order ID from the URL
+const OrderDetailsPage = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch order details
   useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const response = await fetch(`/api/orders/${id}`);
-        const data = await response.json();
-        setOrder(data);
-      } catch (error) {
-        console.error("Error fetching order:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!id) {
+      setLoading(false);
+      return;
+    }
 
-    fetchOrder();
+    fetchOrderDetails();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!order) return <p>Order not found.</p>;
+  const fetchOrderDetails = async () => {
+    try {
+      const response = await axios.get(`/api/orders?id=${id}`);
+
+      if (response.status === 200) {
+        setOrder(response.data);
+      } else {
+        console.error("Unexpected response status:", response.status);
+        setOrder(null);
+      }
+    } catch (error) {
+      console.error("Failed to fetch order details:", error);
+      setOrder(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!id) {
+    return (
+      <div className="container mx-auto p-5">
+        <h1 className="text-2xl font-bold">Error</h1>
+        <p>Order ID is missing in the URL. Please check the link or contact support.</p>
+      </div>
+    );
+  }
+
+  if (!order) {
+    return <div>Order not found.</div>;
+  }
 
   return (
-    <div className="my-20 lg:w-5/12 w-5/6 mx-auto">
-      <h1 className="text-2xl font-bold">Order Status</h1>
-      <div className="mt-10">
-        <p><strong>Order ID:</strong> {order._id}</p>
-        <p><strong>Customer Name:</strong> {order.customerName}</p>
-        <p><strong>Email:</strong> {order.email}</p>
-        <p><strong>Address:</strong> {order.address}</p>
-        <p><strong>Phone:</strong> {order.phone}</p>
-        <p><strong>Total Amount:</strong> ₦{order.totalAmount.toFixed(2)}</p>
-        <p><strong>Status:</strong> {order.status}</p>
-      </div>
+    <div className="container mx-auto p-5">
+      <h1 className="text-2xl font-bold">Order Details</h1>
+      <p><strong>Order ID:</strong> {order._id}</p>
+      <p><strong>Status:</strong> {order.status}</p>
+      <p><strong>Total Amount:</strong> ₦{order.totalAmount}</p>
 
-      {/* Admin Section */}
-      <div className="mt-10">
-        <h2 className="text-xl font-bold">Update Order Status</h2>
-        <div className="flex gap-4 mt-5">
-          <button
-            onClick={() => updateStatus('Processing')}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            Processing
-          </button>
-          <button
-            onClick={() => updateStatus('In-Transit')}
-            className="bg-yellow-600 text-white px-4 py-2 rounded-md"
-          >
-            In-Transit
-          </button>
-          <button
-            onClick={() => updateStatus('Delivered')}
-            className="bg-green-600 text-white px-4 py-2 rounded-md"
-          >
-            Delivered
-          </button>
-        </div>
-      </div>
+      <h2 className="text-xl font-bold mt-5">Items</h2>
+      <ul>
+        {order.items.map((item, index) => (
+          <li key={index} className="border p-3">
+            {item.name} - ₦{item.price} x {item.quantity}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default OrderPage;
+export default OrderDetailsPage;

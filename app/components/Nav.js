@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
@@ -10,9 +10,11 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Toaster, toast } from 'sonner'
 import { useRouter } from 'next/navigation';
+import { CartContext } from "./CartContext";
 
 
 const Nav = () => {
+  const { cart } = useContext(CartContext);
   const [toggleMenu, setToggleMenu] = useState(false);
   const pathname = usePathname();
   const token = Cookies.get("token")
@@ -94,9 +96,16 @@ const Nav = () => {
           
         </div>
         <div className="flex items-center">
-        <Link href="/cart">
-        <MdOutlineShoppingCart className="text-2xl" />
+        <div className="relative flex items-center">
+          {cart.length > 0 && (
+            <span className="absolute top-0 left-0 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              {cart.length}
+            </span>
+          )}
+          <Link href="/cart">
+            <MdOutlineShoppingCart className="text-2xl ml-4" />
           </Link>
+        </div>
         {token === null ? (
           <Link href="signin">
             <motion.p
