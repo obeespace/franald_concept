@@ -15,6 +15,8 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
 import Link from "next/link";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function Home() {
   const [menus, setMenus] = useState([]);
@@ -99,11 +101,15 @@ export default function Home() {
             See Menu
           </button>
         </div>
-        {loading ? <p className="text-center">Menu Loading...</p> : <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
-          {menus.map((data) => (
-            <HomeMenu key={data._id} {...data} />
-          ))}
-        </div>}
+        {loading ? (
+          <Skeleton count={5} height={50} className="my-3" />
+        ) : (
+          <div className=" mx-auto my-3 py-2 overflow-x-scroll lg:flex-wrap lg:overflow-x-hidden scrollbar-none flex gap-7">
+            {menus.map((data) => (
+              <HomeMenu key={data._id} {...data} />
+            ))}
+          </div>
+        )}
         
       </section>
 

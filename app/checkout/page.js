@@ -2,7 +2,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Toaster, toast } from 'sonner'
 import { CartContext } from '../components/CartContext'; // Adjust the import path as needed
-
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Page = () => {
   const [nickname, setNickName] = useState("");
   const [fullname, setFullName] = useState("");
   const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Access the total from CartContext
   const {cart, total, clearCart } = useContext(CartContext);
@@ -27,6 +29,8 @@ const Page = () => {
         }
       } catch (error) {
         console.error('Error fetching user email:', error);
+      } finally {
+        setLoading(false); // Stop loading after the fetch is complete
       }
     };
 
@@ -54,8 +58,7 @@ const Page = () => {
       amount: Math.round(total * 100), // Ensure amount is in kobo and rounded
       ref: `ref_${new Date().getTime()}`, // Unique reference for each transaction
       onSuccess: async (transaction) => {
-        console.log("Payment Successful!", transaction);
-
+        
         // Save order to the database
         const orderData = {
           customerName: fullname.trim(),
@@ -70,8 +73,6 @@ const Page = () => {
           totalAmount: total,
           status: 'Processing', // Initial status
         };
-
-        console.log("Order Data:", orderData);
 
         try {
           const response = await fetch('/api/clientorder', {
@@ -95,11 +96,21 @@ const Page = () => {
         }
       },
       onCancel: () => {
-        console.log("Payment Cancelled");
         toast.error("Payment was not completed. Please try again.");
       },
     });
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto w-5/6 my-10">
+        <h1 className="text-2xl font-bold">Checkout</h1>
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+      </div>
+    );
+  }
 
   return (
     <div className="my-20 lg:w-5/12 w-5/6 mx-auto">

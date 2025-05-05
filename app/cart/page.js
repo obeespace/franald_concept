@@ -4,6 +4,8 @@ import React, { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { CartContext } from "../components/CartContext";
 import cartpic from "../../public/cartpic.png";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Page = () => {
   const {
@@ -26,6 +28,17 @@ const Page = () => {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto w-5/6 my-10">
+        <h1 className="text-2xl font-bold">Cart</h1>
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+      </div>
+    );
+  }
 
   return (
     <main className="w-5/6 mx-auto mt-10 mb-40">

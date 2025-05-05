@@ -5,6 +5,8 @@ import axios from "axios";
 import shopbanner from "../../public/shopbanner2.jpg";
 import ShopMenu from "../components/ShopMenu";
 import { Toaster, toast } from 'sonner';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Page = () => {
   const [menus, setMenus] = useState([]);
@@ -27,7 +29,30 @@ const Page = () => {
     fetchMenus();
   }, [fetchMenus]);
 
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) {
+    return (
+      <main className="mt-10 w-5/6 mx-auto">
+        <Toaster position="top-right" richColors />
+        <section>
+          <Skeleton height={200} className="rounded-2xl" />
+        </section>
+
+        <section className="mt-20">
+          <Skeleton height={30} width={200} className="mb-5" />
+          <div className="mx-auto my-3 gap-4 py-2 grid grid-cols-2 lg:grid-cols-4">
+            <Skeleton height={150} className="rounded-lg" count={4} />
+          </div>
+        </section>
+
+        <section className="my-20">
+          <Skeleton height={30} width={200} className="mb-5" />
+          <div className="mx-auto my-3 gap-4 py-2 grid grid-cols-2 lg:grid-cols-4">
+            <Skeleton height={150} className="rounded-lg" count={3} />
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="mt-10 w-5/6 mx-auto">

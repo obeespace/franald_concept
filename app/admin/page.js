@@ -6,6 +6,8 @@ import { MdDeleteOutline } from "react-icons/md";
 import { Toaster, toast } from 'sonner'
 import { Tab } from '@headlessui/react';
 import { format } from "date-fns";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const AdminPage = () => {
   const [menus, setMenus] = useState([]);
@@ -111,45 +113,49 @@ const AdminPage = () => {
   return (
     <div className="container mx-auto w-5/6 my-10">
       <Toaster position="top-right" richColors />
-      <h1 className="text-2xl font-bold">Admin Panel</h1>
+      <h1 className="text-2xl font-bold">Admin <span className="text-red-600">Panel</span></h1>
 
       <Tab.Group>
         <Tab.List className="flex space-x-2 mt-5">
-          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2" : "bg-gray-200 px-4 py-2"}>List Items</Tab>
-          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2" : "bg-gray-200 px-4 py-2"}>Add Items</Tab>
-          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2" : "bg-gray-200 px-4 py-2"}>Manage Orders</Tab>
+          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2 rounded-lg" : "bg-gray-200 px-4 py-2 rounded-lg"}>List Items</Tab>
+          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2 rounded-lg" : "bg-gray-200 px-4 py-2 rounded-lg"}>Add Items</Tab>
+          <Tab className={({ selected }) => selected ? "bg-orange-600 text-white px-4 py-2 rounded-lg" : "bg-gray-200 px-4 py-2 rounded-lg"}>Manage Orders</Tab>
         </Tab.List>
 
         <Tab.Panels>
           <Tab.Panel>
             {/* List Items Code */}
-            <ul className="mt-5">
-              {menus.map((menu) => (
-                <li key={menu._id} className="border p-3 flex justify-between items-center my-3 rounded-lg shadow-sm">
-                  <span>{menu.name} - ₦{menu.price}</span>
-                  <div>
-                    <button
-                      onClick={() => {
-                        setCurrentMenu(menu);
-                        setShowEditModal(true);
-                      }}
-                      className="bg-yellow-700 rounded-full text-white px-2 py-2 mr-2"
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => {
-                        setCurrentMenu(menu);
-                        setShowDeleteModal(true);
-                      }}
-                      className="bg-red-700 text-white px-2 rounded-full py-2"
-                    >
-                      <MdDeleteOutline />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {loading ? (
+              <Skeleton count={5} height={50} className="my-3" />
+            ) : (
+              <ul className="mt-5">
+                {menus.map((menu) => (
+                  <li key={menu._id} className="border p-3 flex justify-between items-center my-3 rounded-lg shadow-sm">
+                    <span>{menu.name} - ₦{menu.price}</span>
+                    <div>
+                      <button
+                        onClick={() => {
+                          setCurrentMenu(menu);
+                          setShowEditModal(true);
+                        }}
+                        className="bg-yellow-700 rounded-full text-white px-2 py-2 mr-2"
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCurrentMenu(menu);
+                          setShowDeleteModal(true);
+                        }}
+                        className="bg-red-700 text-white px-2 rounded-full py-2"
+                      >
+                        <MdDeleteOutline />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Tab.Panel>
 
           <Tab.Panel>
@@ -165,42 +171,46 @@ const AdminPage = () => {
 
           <Tab.Panel>
             {/* Manage Orders Code */}
-            <ul className="mt-5">
-              {Object.keys(groupedOrders).map((date) => (
-                <div key={date} className="mb-6">
-                  <h2 className="text-lg font-bold mb-2">{date}</h2>
-                  {groupedOrders[date].map((order) => (
-                    <li key={order._id} className="border my-3 rounded-lg shadow-sm p-3 flex flex-col gap-2">
-                      <span><strong>Name:</strong> {order.customerName}</span>
-                      <span><strong>Status:</strong> {order.status}</span>
-                      <span><strong>Order:</strong> {order.items.map(item => `${item.name} x${item.quantity}`).join(', ')}</span>
-                      <span><strong>Price:</strong> ₦{order.totalAmount}</span>
-                      <span><strong>Phone:</strong> {order.phone}</span>
-                      <span><strong>Address:</strong> {order.address}</span>
-                      <div>
-                        {order.status !== "Delivered" ? (
-                          <button
-                            onClick={() => updateOrderStatus(order._id, order.status === "Processing" ? "In-Transit" : "Delivered")}
-                            className={`px-4 py-2 text-white rounded ${
-                              order.status === "Processing" ? "bg-yellow-500" : "bg-green-500"
-                            }`}
-                          >
-                            {order.status === "Processing" ? "Mark as In-Transit" : "Mark as Delivered"}
-                          </button>
-                        ) : (
-                          <button
-                            disabled
-                            className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
-                          >
-                            Delivered
-                          </button>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </div>
-              ))}
-            </ul>
+            {loading ? (
+              <Skeleton count={3} height={100} className="my-3" />
+            ) : (
+              <ul className="mt-5">
+                {Object.keys(groupedOrders).map((date) => (
+                  <div key={date} className="mb-6">
+                    <h2 className="text-lg font-bold mb-2">{date}</h2>
+                    {groupedOrders[date].map((order) => (
+                      <li key={order._id} className="border my-3 rounded-lg shadow-sm p-3 flex flex-col gap-2">
+                        <span><strong>Name:</strong> {order.customerName}</span>
+                        <span><strong>Status:</strong> {order.status}</span>
+                        <span><strong>Order:</strong> {order.items.map(item => `${item.name} x${item.quantity}`).join(', ')}</span>
+                        <span><strong>Price:</strong> ₦{order.totalAmount}</span>
+                        <span><strong>Phone:</strong> {order.phone}</span>
+                        <span><strong>Address:</strong> {order.address}</span>
+                        <div>
+                          {order.status !== "Delivered" ? (
+                            <button
+                              onClick={() => updateOrderStatus(order._id, order.status === "Processing" ? "In-Transit" : "Delivered")}
+                              className={`px-4 py-2 text-white rounded ${
+                                order.status === "Processing" ? "bg-yellow-500" : "bg-green-500"
+                              }`}
+                            >
+                              {order.status === "Processing" ? "Mark as In-Transit" : "Mark as Delivered"}
+                            </button>
+                          ) : (
+                            <button
+                              disabled
+                              className="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
+                            >
+                              Delivered
+                            </button>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </div>
+                ))}
+              </ul>
+            )}
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

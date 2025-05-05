@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from 'sonner';
 import axios from "axios";
 import { format } from "date-fns";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -16,10 +18,8 @@ export default function Dashboard() {
       try {
         const response = await axios.get("/api/auth/user");
         setUser(response.data);
-        console.log(response);
       } catch (error) {
         toast.error("Authentication failed")
-        console.log("Authentication failed, redirecting...");
         router.push("/auth/signin");
       }
     };
@@ -49,8 +49,16 @@ export default function Dashboard() {
     fetchUserOrders();
   }, []);
 
+  // Replaced loading state with skeleton loading for better user experience
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container mx-auto w-5/6 my-10">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+      </div>
+    );
   }
 
   if (orders.length === 0) {

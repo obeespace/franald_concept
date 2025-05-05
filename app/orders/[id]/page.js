@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const OrderDetailsPage = () => {
   const searchParams = useSearchParams();
@@ -37,8 +39,16 @@ const OrderDetailsPage = () => {
     }
   };
 
+  // Replaced loading state with skeleton loading for better user experience
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container mx-auto w-5/6 my-10">
+        <h1 className="text-2xl font-bold">Orders</h1>
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+        <Skeleton height={50} className="my-3" />
+      </div>
+    );
   }
 
   if (!id) {

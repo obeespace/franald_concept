@@ -9,7 +9,7 @@ export async function GET(req) {
   await dbConnect();
 
   const token = req.cookies.get("token")?.value;
-  console.log(token, JWT_SECRET);
+  
   if (!token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -17,7 +17,7 @@ export async function GET(req) {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(decoded.userId).select("-password");
-    console.log(user);
+  
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }

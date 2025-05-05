@@ -24,7 +24,7 @@ export default function SignIn() {
       if (res.data.token) {
         document.cookie = `token=${res.data.token}; path=/`; // Store in cookie
         toast.success("Sign-in successful, you are being redirected...");
-        router.push("/dashboard");
+        router.push("/shop");
       } else {
         toast.error("Login failed");
       }

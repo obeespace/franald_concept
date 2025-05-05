@@ -35,7 +35,6 @@ export default function SignUp() {
       router.push("/auth/signin");
   
     } catch (error) {
-      console.log("Error:", error.response);
       toast.error(error.response?.data?.error || "An error occurred");
     }
   };
