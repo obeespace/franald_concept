@@ -80,10 +80,10 @@ export default function Dashboard() {
       {orders ? (
         <div className="space-y-4">
           {Object.keys(groupedOrders).map((date) => (
-            <div key={date} className="mb-6">
+            <div key={date} className="mb-6 ">
               <h2 className="text-lg font-bold mb-2">{date}</h2>
               {groupedOrders[date].map((order) => (
-                <div key={order._id} className="lg:flex justify-between items-center border border-gray-300 p-4 rounded-md shadow-sm">
+                <div key={order._id} className="lg:flex justify-between mb-4 items-center border border-gray-300 p-4 rounded-md shadow-sm">
                   <div>
                     <p className="font-semibold">Order ID: {order._id.slice(-6)}</p>
                     <div className="mt-2">
