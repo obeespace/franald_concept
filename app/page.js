@@ -128,23 +128,23 @@ export default function Home() {
           <div className="flex flex-col items-center">
             <Image src={poultry} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Poultry Produce</p>
-            <button className="flex items-center font-semibold text-orange-600">
+            <Link href='/shop'><button className="flex items-center font-semibold text-orange-600">
               Order Now <IoMdArrowDropright />
-            </button>
+            </button></Link>
           </div>
           <div className="flex flex-col items-center mt-10 lg:mt-0">
             <Image src={fishery} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Fishery Produce</p>
-            <button className="flex items-center font-semibold text-orange-600">
+            <Link href='/shop'><button className="flex items-center font-semibold text-orange-600">
               Order Now <IoMdArrowDropright />
-            </button>
+            </button></Link>
           </div>
           <div className="flex flex-col items-center mt-10 lg:mt-0">
             <Image src={takeout} alt="vegetables" className="w-4/6" />
             <p className="font-semibold text-lg mt-7">Kitchen Produce</p>
-            <button className="flex items-center text-orange-600 font-semibold">
+            <Link href='/shop'><button className="flex items-center text-orange-600 font-semibold">
               Order Now <IoMdArrowDropright />
-            </button>
+            </button></Link>
           </div>
         </div>
       </section>

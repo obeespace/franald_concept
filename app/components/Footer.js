@@ -8,6 +8,8 @@ import {
 import { IoMdArrowDropright } from "react-icons/io";
 import banner from "../../public/banner.jpg";
 import Image from "next/image";
+import Link from "next/link";
+
 
 const Footer = () => {
   return (
@@ -22,9 +24,9 @@ const Footer = () => {
           Enjoy all Our amazing <span className="text-red-800 font-bold">menus</span>{" "}
           and <span className="text-green-800 font-bold">farm</span> produce
         </p>
-        <button className="bg-black rounded-2xl px-6 py-2 mt-10 text-white flex items-center gap-2 hover:bg-slate-950 w-fit">
+        <Link href="/shop"><button className="bg-black rounded-2xl px-6 py-2 mt-10 text-white flex items-center gap-2 hover:bg-slate-950 w-fit">
           Order Now <IoMdArrowDropright />
-        </button>
+        </button></Link>
       </div>
 
       <div className="w-4/6 mx-auto lg:-mt-14 -mt-8 flex justify-between items-center">

@@ -19,7 +19,7 @@ export default function Dashboard() {
         const response = await axios.get("/api/auth/user");
         setUser(response.data);
       } catch (error) {
-        toast.error("Authentication failed")
+        toast.error("Authentication failed, please log in again.");
         router.push("/auth/signin");
       }
     };
@@ -75,7 +75,7 @@ export default function Dashboard() {
 
   return (
     <div className="w-5/6 mx-auto my-10">
-      <h1 className="text-2xl font-bold text-gray-800 mb-5">My Orders</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-5">My <span className="text-red-600">Orders</span></h1>
 
       {orders ? (
         <div className="space-y-4">

@@ -6,6 +6,8 @@ import { CartContext } from "../components/CartContext";
 import cartpic from "../../public/cartpic.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const {
@@ -19,6 +21,8 @@ const Page = () => {
 
   const [coupon, setCoupon] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const handleApplyCoupon = () => {
     if (coupon) {
@@ -27,6 +31,24 @@ const Page = () => {
       setCoupon("");
       setLoading(false);
     }
+  };
+
+  const handleProceedToCheckout = () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      setShowModal(true);
+    } else {
+      router.push("/checkout");
+    }
+  };
+
+  const handleProceed = () => {
+    setShowModal(false);
+    router.push("/auth/signin?redirect=/checkout");
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
   };
 
   if (loading) {
@@ -98,13 +120,36 @@ const Page = () => {
       )}
 
       {cart.length > 0 && (
-        <div className="mt-5">
-          <h2 className="text-xl font-bold">Total: ₦{total.toFixed(2)}</h2>
-          <Link href="/checkout">
-            <button className="bg-orange-600 rounded-md px-4 py-2 mt-3 text-white hover:bg-orange-800 ml-3">
-              Proceed to Checkout
-            </button>
-          </Link>
+        <div className="mt-7">
+          <h2 className="text-xl">Total: <span className="font-bold">₦{total.toFixed(2)}</span></h2>
+          <button
+            onClick={handleProceedToCheckout}
+            className="bg-orange-600 rounded-md px-4 py-2 mt-3 text-white hover:bg-orange-800"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg text-center">
+            <p className="mb-4">To proceed, you will have to sign in.</p>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={handleProceed}
+                className="bg-orange-700 text-white px-4 py-2 rounded hover:bg-orange-800"
+              >
+                Proceed
+              </button>
+              <button
+                onClick={handleCancel}
+                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </main>

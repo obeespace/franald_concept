@@ -136,8 +136,15 @@ const Nav = () => {
           </Link>
         </div>
 
-        <div className="flex gap-3">
-        <Link href="cart"><MdOutlineShoppingCart className="text-2xl" /></Link>
+        <div className="flex gap-3 items-center">
+        <div className="relative flex items-center">
+          {cart.length > 0 && (
+            <span className="absolute top-0 -left-4 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              {cart.length}
+            </span>
+          )}
+          <Link href="cart"><MdOutlineShoppingCart className="text-2xl" /></Link>
+        </div>
         <div className="flex items-center gap-4">
           <div className="relative">
             {toggleMenu ? (
