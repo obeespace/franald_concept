@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useContext, useState, useEffect } from "react";
-import Link from "next/link";
 import { CartContext } from "../components/CartContext";
 import cartpic from "../../public/cartpic.png";
 import Skeleton from "react-loading-skeleton";
@@ -15,7 +14,7 @@ const Page = () => {
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
-    applyCoupon,
+    // applyCoupon,
     total,
   } = useContext(CartContext);
 
@@ -24,14 +23,14 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
-  const handleApplyCoupon = () => {
-    if (coupon) {
-      setLoading(true);
-      applyCoupon(coupon);
-      setCoupon("");
-      setLoading(false);
-    }
-  };
+  // const handleApplyCoupon = () => {
+  //   if (coupon) {
+  //     setLoading(true);
+  //     applyCoupon(coupon);
+  //     setCoupon("");
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleProceedToCheckout = () => {
     const token = Cookies.get("token");

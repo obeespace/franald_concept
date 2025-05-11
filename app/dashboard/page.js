@@ -95,8 +95,8 @@ export default function Dashboard() {
                       ))}
                     </div>
                   </div>
-                  <p className="mt-2 font-semibold">Total: ₦{order.totalAmount}</p>
-                  <p className="mt-2 font-semibold">
+                  <p className="mt-3 font-semibold">Total: ₦{order.totalAmount}</p>
+                  <p className="mt-3 font-semibold">
                     Status: <span
                       className={`px-2 py-1 text-xs font-semibold rounded ${
                         order.status === "Delivered"

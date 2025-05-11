@@ -80,16 +80,16 @@ export default function Home() {
           />
           <div className="lg:flex hidden lg:flex-col gap-20 text-center">
             <p>
-              More <span className="text-green-700 font-bold">Vegetables</span>,
-              healthier <span className="text-black font-bold">Life</span>
+              More <span className="text-green-700 font-bold">Fresh Produce</span>,
+              tastier <span className="text-black font-bold">Grills</span>
             </p>
             <div>
-              <p className="text-2xl font-bold">4+</p>
-              <p>Categories</p>
+              <p className="text-2xl font-bold">10+</p>
+              <p>Farm & Grill Options</p>
             </div>
             <div>
-              <p className="text-2xl font-bold">1 Store</p>
-              <p>Life-long supply</p>
+              <p className="text-2xl font-bold">1 Farm</p>
+              <p>Nature-fed, Flame-grilled</p>
             </div>
           </div>
         </div>
@@ -175,16 +175,16 @@ export default function Home() {
             <div className="flex justify-between">
               <SiDrone className="text-2xl" />
               <div>
-                <p className="font-semibold text-xl">Air delivery</p>{" "}
-                <p className="text-sm">The fastest and safest way to convey</p>
+                <p className="font-semibold text-xl">Door delivery</p>{" "}
+                <p className="text-sm">Your orders can be brought to your doorstep</p>
               </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-5">
               <SiDrone className="text-2xl" />
               <div>
-                <p className="font-semibold text-xl">Air delivery</p>{" "}
-                <p className="text-sm">The fastest and safest way to convey</p>
+                <p className="font-semibold text-xl">Timely delivery</p>{" "}
+                <p className="text-sm">We partner with professional delivery services</p>
               </div>
             </div>
           </div>
