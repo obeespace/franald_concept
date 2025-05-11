@@ -71,32 +71,43 @@ const Page = () => {
 
       {cart.length > 0 ? (
         cart.map((item, index) => (
-          <div
-            key={item.name} // Optimized key to use item name (ensure it is unique)
-            className="border p-4 mb-4 flex justify-between items-center rounded-lg shadow-md"
-          >
-            <div>
-              <p className="text-xl">{item.name}</p>
-              <p className="text-gray-500">Price: ₦{item.price}</p>
+          <div key={item.name} className="border p-4 mb-4 rounded-lg shadow-md">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-xl">{item.name}</p>
+                <p className="text-gray-500">Price: ₦{item.price}</p>
+              </div>
+
+              <div className="flex items-center">
+                <button
+                  onClick={() => decreaseQuantity(item.name)}
+                  className="bg-gray-200 px-3 py-1 rounded-full hover:bg-gray-300"
+                >
+                  -
+                </button>
+                <span className="px-4">{item.quantity}</span>
+                <button
+                  onClick={() => increaseQuantity(item.name)}
+                  className="bg-gray-200 px-3 py-1 rounded-full hover:bg-gray-300"
+                >
+                  +
+                </button>
+              </div>
+
+              <div className="hidden lg:block">
+                <p className="text-lg">
+                  Total: ₦{Number(item.price) * Number(item.quantity)}
+                </p>
+                <button
+                  onClick={() => removeFromCart(item.name)}
+                  className="text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
 
-            <div className="flex items-center">
-              <button
-                onClick={() => decreaseQuantity(item.name)}
-                className="bg-gray-200 px-3 py-1 rounded-l hover:bg-gray-300"
-              >
-                -
-              </button>
-              <span className="px-4">{item.quantity}</span>
-              <button
-                onClick={() => increaseQuantity(item.name)}
-                className="bg-gray-200 px-3 py-1 rounded-r hover:bg-gray-300"
-              >
-                +
-              </button>
-            </div>
-
-            <div>
+            <div className="lg:hidden flex justify-between">
               <p className="text-lg">
                 Total: ₦{Number(item.price) * Number(item.quantity)}
               </p>
@@ -120,7 +131,9 @@ const Page = () => {
 
       {cart.length > 0 && (
         <div className="mt-7">
-          <h2 className="text-xl">Total: <span className="font-bold">₦{total.toFixed(2)}</span></h2>
+          <h2 className="text-xl">
+            Total: <span className="font-bold">₦{total.toFixed(2)}</span>
+          </h2>
           <button
             onClick={handleProceedToCheckout}
             className="bg-orange-600 rounded-md px-4 py-2 mt-3 text-white hover:bg-orange-800"

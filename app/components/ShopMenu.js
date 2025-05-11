@@ -28,7 +28,7 @@ const ShopMenu = ({ id, name, price, description }) => {
         <p>{name}</p>
         <p className="italic text-slate-700">{description}</p>
         <div className="flex justify-between items-center mt-3">
-          <p className="text-red-800 gap-10 font-semibold text-lg">{price}</p>
+          <p className="text-red-800 gap-10 font-semibold text-lg">₦{price}</p>
           <p
             onClick={handleAddToCart}
             className="cursor-pointer text-green-700 lg:hover:underline"

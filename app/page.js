@@ -84,11 +84,11 @@ export default function Home() {
               tastier <span className="text-black font-bold">Grills</span>
             </p>
             <div>
-              <p className="text-2xl font-bold">10+</p>
+              <p className="text-2xl font-bold text-orange-800">10+</p>
               <p>Farm & Grill Options</p>
             </div>
             <div>
-              <p className="text-2xl font-bold">1 Farm</p>
+              <p className="text-2xl font-bold text-green-800">1 Farm</p>
               <p>Nature-fed, Flame-grilled</p>
             </div>
           </div>
