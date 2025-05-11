@@ -107,7 +107,7 @@ const Page = () => {
               </div>
             </div>
 
-            <div className="lg:hidden flex justify-between">
+            <div className="lg:hidden flex justify-between items-center">
               <p className="text-lg">
                 Total: ₦{Number(item.price) * Number(item.quantity)}
               </p>
