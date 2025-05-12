@@ -53,7 +53,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="container mx-auto w-5/6 my-10">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold">My <span className="text-red-700">Dashboard</span></h1>
         <Skeleton height={50} className="my-3" />
         <Skeleton height={50} className="my-3" />
         <Skeleton height={50} className="my-3" />
