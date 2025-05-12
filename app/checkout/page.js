@@ -104,7 +104,7 @@ const Page = () => {
   if (loading) {
     return (
       <div className="container mx-auto w-5/6 my-10">
-        <h1 className="text-2xl font-bold">Checkout</h1>
+        <h1 className="text-2xl font-bold">Delivery <span className="text-red-600">Info</span></h1>
         <Skeleton height={50} className="my-3" />
         <Skeleton height={50} className="my-3" />
         <Skeleton height={50} className="my-3" />
@@ -113,7 +113,7 @@ const Page = () => {
   }
 
   return (
-    <div className="my-20 lg:w-5/12 w-5/6 mx-auto">
+    <div className="my-10 lg:w-5/12 w-5/6 mx-auto">
             <Toaster position="top-right" richColors />
 
       <p className="text-2xl font-bold">
