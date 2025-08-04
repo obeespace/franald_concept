@@ -173,7 +173,7 @@ export default function Home() {
 
           <div className="hidden lg:block">
             <div className="flex justify-between">
-              <SiDrone className="text-2xl" />
+              
               <div>
                 <p className="font-semibold text-xl">Door delivery</p>{" "}
                 <p className="text-sm">Your orders can be brought to your doorstep</p>
@@ -181,7 +181,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-between mt-5">
-              <SiDrone className="text-2xl" />
+              
               <div>
                 <p className="font-semibold text-xl">Timely delivery</p>{" "}
                 <p className="text-sm">We partner with professional delivery services</p>

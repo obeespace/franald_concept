@@ -29,16 +29,7 @@ const Footer = () => {
         </button></Link>
       </div>
 
-      <div className="w-4/6 mx-auto lg:-mt-14 -mt-8 flex justify-between items-center">
-        <p>Franald Foods</p>
-        <p className="hidden lg:block">2025 ObeeSpace | All rights reserved</p>
-        <div className="flex gap-8 text-orange-700">
-          <BsDribbble />
-          <BsLinkedin />
-          <BsFacebook />
-          <BsInstagram />
-        </div>
-      </div>
+      
     </div>
   );
 };
