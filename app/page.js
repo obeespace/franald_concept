@@ -19,8 +19,35 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function Home() {
+   const faqs = [
+    {
+      question: "How long does delivery usually take?",
+      answer:
+        "Most deliveries arrive within 30-45 minutes. During peak hours or bad weather, it might take up to 60 minutes. You'll get real-time tracking updates so you know exactly when your order will arrive.",
+    },
+    {
+      question: "What are the delivery fees and minimum order requirements?",
+      answer:
+        "Delivery fees typically range from ₦500 to ₦2000 depending on distance",
+    },
+    {
+      question: "Can I track my order in real-time?",
+      answer:
+        "Yes! Once your order is confirmed, you can track it every step of the way. You'll see when the restaurant starts preparing your food, when the driver picks it up, till it gets to you.",
+    },
+    {
+      question: "What payment methods do you accept?",
+      answer: "We accept all major credit cards (Visa, Mastercard, verve).",
+    },
+    {
+      question: "What if my order is wrong or missing items?",
+      answer:
+        "We're here to help! If there's an issue with your order, contact us immediately through the app or call our support line. We'll work with the restaurant to fix the problem and may offer a refund, credit, or replacement order.",
+    },
+  ];
   const [menus, setMenus] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const fetchMenus = useCallback(async () => {
     try {
@@ -186,6 +213,60 @@ export default function Home() {
                 <p className="font-semibold text-xl">Timely delivery</p>{" "}
                 <p className="text-sm">We partner with professional delivery services</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto mb-20 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Frequently Asked <span className="text-green-800">Questions</span>
+            </h2>
+            <p className="text-lg text-gray-600">
+              Got questions? We've got answers. Find everything you need to know
+              about our delivery service.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                value={`item-${index}`}
+                className="border border-gray-200 rounded-lg px-6 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <button
+                  className="w-full text-left font-semibold text-orange-700 hover:text-orange-500 py-6 focus:outline-none"
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  aria-expanded={openFaq === index}
+                  aria-controls={`faq-answer-${index}`}
+                >
+                  {faq.question}
+                </button>
+                {openFaq === index && (
+                  <p
+                    id={`faq-answer-${index}`}
+                    className="text-gray-600 pb-6 leading-relaxed"
+                  >
+                    {faq.answer}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-4">Still have questions?</p>
+            <div className="sm:flex-row gap-4 justify-center">
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-800 transition-colors"
+              >
+                Contact Support
+              </a>
+              
             </div>
           </div>
         </div>
