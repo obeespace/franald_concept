@@ -9,7 +9,7 @@ import bannerpic from "../public/bannerpic.png";
 import firstbanner from "../public/firstbanner.jpg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
-import { SiDrone } from "react-icons/si";
+import { FiAward } from "react-icons/fi";
 import HomeMenu from "./components/homeMenu";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -168,7 +168,7 @@ export default function Home() {
           <Image
             alt="banner picture"
             src={bannerpic}
-            className="lg:w-7/12 mt-4 lg:mt-0"
+            className="lg:w-7/12 mt-10 lg:mt-0"
           />
 
           <div className="hidden lg:block">
@@ -191,15 +191,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* <section className="my-20 w-4/6 mx-auto">
-        <div className="lg:flex gap-10">
-          <div className="h-96 w-96 rounded-xl bg-green-800"></div>
-          <div className="lg:flex flex-col justify-between">
-            <div className="h-44 w-96 rounded-xl bg-orange-800"></div>
-            <div className="h-44 w-96 rounded-xl bg-red-800"></div>
-          </div>
-        </div>
-      </section> */}
+      
     </main>
   );
 }
