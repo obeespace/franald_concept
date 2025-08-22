@@ -7,7 +7,7 @@ import takeout from "../public/chips.png";
 import homeImg2 from "../public/chickenbreast.png";
 import bannerpic from "../public/bannerpic.png";
 import firstbanner from "../public/firstbanner.jpg";
-import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { FiAward } from "react-icons/fi";
 import HomeMenu from "./components/homeMenu";
@@ -48,6 +48,9 @@ export default function Home() {
   const [menus, setMenus] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const [trackId, setTrackId] = useState("");
+  const [trackLoading, setTrackLoading] = useState(false);
+  const [trackResult, setTrackResult] = useState(null);
 
   const fetchMenus = useCallback(async () => {
     try {
@@ -66,6 +69,22 @@ export default function Home() {
     fetchMenus();
   }, [fetchMenus]);
 
+  const handleTrackOrder = async () => {
+    if (!trackId.trim()) {
+      toast.error("Please enter your order ID.");
+      return;
+    }
+    setTrackLoading(true);
+    setTrackResult(null);
+    try {
+      // Replace with your actual API endpoint for tracking
+      const { data } = await axios.get(`/api/track-order?id=${trackId.trim()}`);
+      setTrackResult(data || { status: "Not found", message: "Order not found." });
+    } catch (err) {
+      setTrackResult({ status: "Error", message: "Could not fetch order. Try again." });
+    }
+    setTrackLoading(false);
+  };
 
   return (
     <main className="">
@@ -119,6 +138,40 @@ export default function Home() {
               <p>Nature-fed, Flame-grilled</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Order Tracking Section */}
+      <section className="w-5/6 mx-auto my-20">
+        <div className="bg-white p-6 flex flex-col items-center">
+          <h3 className="text-xl font-bold mb-2 text-gray-900">Track Your Order</h3>
+          <p className="text-gray-600 mb-4 text-center">Enter your Order ID to see the status of your delivery.</p>
+          <div className="flex gap-2 w-full max-w-md">
+            <input
+              type="text"
+              value={trackId}
+              onChange={e => setTrackId(e.target.value)}
+              placeholder="Enter Order ID"
+              className="border border-gray-300 rounded px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-orange-600"
+            />
+            <button
+              onClick={handleTrackOrder}
+              disabled={trackLoading}
+              className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-800 font-semibold"
+            >
+              {trackLoading ? "Tracking..." : "Track"}
+            </button>
+          </div>
+          {trackResult && (
+            <div className="mt-4 w-full max-w-md text-center">
+              <p className="font-bold text-orange-700">{trackResult.status}</p>
+              <p className="text-gray-700">{trackResult.message}</p>
+              {/* Optionally show more info if available */}
+              {trackResult.eta && (
+                <p className="text-green-700 mt-2">Estimated Arrival: {trackResult.eta}</p>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -238,12 +291,17 @@ export default function Home() {
                 className="border border-gray-200 rounded-lg px-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <button
-                  className="w-full text-left font-semibold text-orange-700 hover:text-orange-500 py-6 focus:outline-none"
+                  className="w-full text-left font-semibold text-orange-700 hover:text-orange-500 py-6 focus:outline-none flex items-center justify-between"
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   aria-expanded={openFaq === index}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  {faq.question}
+                  <span>{faq.question}</span>
+                  <IoMdArrowDropdown
+                    className={`ml-2 transition-transform ${
+                      openFaq === index ? "rotate-90" : ""
+                    }`}
+                  />
                 </button>
                 {openFaq === index && (
                   <p
